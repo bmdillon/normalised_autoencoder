@@ -1,9 +1,9 @@
-
 import torch
 import torch.nn as nn
 from models.autoencoder import AutoEncoder
 from models.sampling import ReplayBuffer, langevin_dynamics
 from utils.losses import ot_loss
+import torch.nn.functional as F
 
 class NormalisedAutoEncoder(nn.Module):
     def __init__(self, input_dim=1600, latent_dim=3, encoder_dims=[128,64], decoder_dims=[64,128], 
@@ -65,9 +65,11 @@ class NormalisedAutoEncoder(nn.Module):
             temperature=self.temperature_z
         )
 
-        x_init = self.autoencoder.decode(z)
+        z = F.normalize(z, p=2, dim=-1, eps=1e-12)        
 
-        # Replay buffer usage
+        x_init = self.autoencoder.decode(z)
+        
+        # replay buffer
         if self.buffer.sample(batch_size) is not None:
             use_replay = torch.rand(batch_size) < self.buffer.replay_ratio
             replay_samples = self.buffer.sample(batch_size)

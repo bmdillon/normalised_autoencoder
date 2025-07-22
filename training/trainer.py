@@ -18,7 +18,6 @@ class Trainer:
             total_loss = 0.0
             for x in tqdm(dataloader, desc=f"[AE] epoch {epoch+1}/{epochs}"):
                 x = x.to(self.device)
-                #loss = self.model.autoencoder.loss(x)
                 loss = self.model.energy(x).mean()
                 self.ae_opt.zero_grad()
                 loss.backward()

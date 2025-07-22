@@ -51,6 +51,10 @@ def main(config_path):
         temperature_z=cfg['training'].get('temperature_z', 1.0),
 
     )
+    
+    logger.info("========== Model Architecture ==========")
+    logger.info(model)
+    logger.info("========================================")
 
     trainer = Trainer( model, logger, ae_lr=cfg['training']['ae_lr'], nae_lr=cfg['training']['nae_lr'] )
     dataloader = load_data(cfg['data']['path'], cfg['data']['batch_size'], gfilter=cfg['data']['gaussian_filter'], gfsigma=cfg['data']['gfsigma'])

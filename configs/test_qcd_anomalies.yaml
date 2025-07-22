@@ -23,7 +23,7 @@ save:
   net_path: 'results/test_qcd_anomalies/net.pt'
     
 training:
-  ae_epochs: 4
+  ae_epochs: 1
   nae_epochs: 20
   eval_every: 2
 
@@ -36,13 +36,13 @@ training:
   # Langevin in input space (x)
   langevin_steps: 10
   langevin_step_size: 1.0e-2
-  clip_grad: 1.0
+  clip_grad: 100.0
   mh: true
   temperature_x: 10.0e-6
 
   # Langevin in latent space (z)
   langevin_z_steps: 10
   langevin_z_step_size: 1.0e-2
-  clip_grad_z: 1.0
+  clip_grad_z: 100.0
   mh_z: true
   temperature_z: 10.0e-6

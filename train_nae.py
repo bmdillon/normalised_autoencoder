@@ -52,7 +52,7 @@ def main(config_path):
 
     )
 
-    trainer = Trainer(model, logger, ae_lr=cfg['training']['ae_lr'], nae_lr=cfg['training']['nae_lr'] )
+    trainer = Trainer( model, logger, ae_lr=cfg['training']['ae_lr'], nae_lr=cfg['training']['nae_lr'] )
     dataloader = load_data(cfg['data']['path'], cfg['data']['batch_size'], gfilter=cfg['data']['gaussian_filter'], gfsigma=cfg['data']['gfsigma'])
     val_loader = load_val(cfg['data']['val_path'], cfg['data']['batch_size'], gfilter=cfg['data']['gaussian_filter'], gfsigma=cfg['data']['gfsigma'])
     

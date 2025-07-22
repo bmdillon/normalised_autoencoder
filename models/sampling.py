@@ -10,7 +10,7 @@ class ReplayBuffer:
         self.replay_ratio = replay_ratio
 
     def push(self, samples):
-        samples = samples.detach().cpu()
+        samples = samples.detach()
         for sample in samples:
             self.buffer.append(sample)
             if len(self.buffer) > self.max_size:

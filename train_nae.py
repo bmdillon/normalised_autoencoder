@@ -3,6 +3,7 @@ import argparse
 import torch
 import yaml
 from utils.logger import get_logger
+from utils.logger import setup_exception_logging
 from models.nae import NormalisedAutoEncoder
 from training.trainer import Trainer
 from utils.data import load_data, load_val
@@ -13,6 +14,7 @@ def main(config_path):
         cfg = yaml.safe_load(f)
 
     logger = get_logger(__name__, logfile=cfg['save'].get('logfile'))
+    setup_exception_logging(logger)
     
     logger.info("========== Config ==========")
     for key, value in cfg.items():

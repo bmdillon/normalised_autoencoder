@@ -1,5 +1,6 @@
-import logging
 import os
+import sys
+import logging
 
 def get_logger(name=__name__, logfile='log_default.txt', level=logging.INFO):
     logger = logging.getLogger(name)
@@ -23,3 +24,9 @@ def get_logger(name=__name__, logfile='log_default.txt', level=logging.INFO):
         logger.addHandler(fh)
 
     return logger
+
+def setup_exception_logging(logger):
+    def handle_exception(exc_type, exc_value, exc_traceback):
+        if not issubclass(exc_type, KeyboardInterrupt):
+            logger.critical("Uncaught exception", exc_info=(exc_type, exc_value, exc_traceback))
+    sys.excepthook = handle_exception

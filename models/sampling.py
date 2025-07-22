@@ -27,7 +27,7 @@ def langevin_dynamics(x, energy_fn, steps=20, step_size=1e-2, temperature=1.0, c
     initial_energy = energy_fn(x).detach() if mh else None
 
     for _ in range(steps):
-        energy = energy_fn(x).mean()
+        energy = energy_fn(x).mean(dim=-1)
         grad = torch.autograd.grad(energy, x, create_graph=False)[0]
         if clip_grad:
             grad = torch.clamp(grad, -clip_grad, clip_grad)

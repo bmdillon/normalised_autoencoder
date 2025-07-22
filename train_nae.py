@@ -2,7 +2,7 @@ import os
 import argparse
 import torch
 import yaml
-from models.nae import NormalizedAutoEncoder
+from models.nae import NormalisedAutoEncoder
 from training.trainer import Trainer
 from utils.data import load_data, load_val
 
@@ -13,7 +13,7 @@ def main(config_path):
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    model = NormalizedAutoEncoder(
+    model = NormalisedAutoEncoder(
         input_dim=cfg['model']['input_dim'],
         latent_dim=cfg['model']['latent_dim'],
         encoder_dims=cfg['model'].get('encoder_dims', [64, 32]),

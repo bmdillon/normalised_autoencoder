@@ -5,7 +5,7 @@ from models.autoencoder import AutoEncoder
 from models.sampling import ReplayBuffer, langevin_dynamics
 from utils.losses import ot_loss
 
-class NormalizedAutoEncoder(nn.Module):
+class NormalisedAutoEncoder(nn.Module):
     def __init__(self, input_dim=1600, latent_dim=3, encoder_dims=[128,64], decoder_dims=[64,128], 
                  energy_func='mse', ot_method='gaussian', blur=1.0, scaling=0.9, p=2.0,
                  buffer_size=10000, replay_ratio=0.95,

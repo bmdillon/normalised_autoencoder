@@ -6,6 +6,9 @@ def get_logger(name=__name__, logfile='log_default.txt', level=logging.INFO):
     if not logger.handlers:
         logger.setLevel(level)
         formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+        
+        if os.path.exists(logfile):
+            raise FileExistsError(f"Log file '{logfile}' already exists. Quitting to avoid overwrite.")
 
         os.makedirs(os.path.dirname(logfile), exist_ok=True)
 

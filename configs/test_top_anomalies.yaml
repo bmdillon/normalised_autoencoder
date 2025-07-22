@@ -1,0 +1,48 @@
+model:
+  input_dim: 1600
+  latent_dim: 3
+  encoder_dims: [64,32]
+  decoder_dims: [32,64]
+
+data:
+  path: data/trn_qcd_data.pt
+  val_path: data/val_data.pt
+  batch_size: 128
+  gaussian_filter: true
+  gfsigma: 2.0
+
+energy:
+  energy_func: 'mse'
+  ot_method: 'gaussian'
+  blur: 1.0
+  scaling: 0.3
+  p: 2.0
+
+save:
+  logfile: 'logs/log_test_top_anomalies.txt'
+  net_path: 'results/test_top_anomalies/net.pt'
+    
+training:
+  ae_epochs: 1
+  nae_epochs: 1
+  eval_every: 1
+
+  ae_lr: 1.0e-3
+  nae_lr: 1.0e-4
+
+  buffer_size: 10000
+  replay_ratio: 0.95
+
+  # Langevin in input space (x)
+  langevin_steps: 10
+  langevin_step_size: 1.0e-2
+  clip_grad: 1.0
+  mh: true
+  temperature_x: 0.1
+
+  # Langevin in latent space (z)
+  langevin_z_steps: 10
+  langevin_z_step_size: 1.0e-2
+  clip_grad_z: 1.0
+  mh_z: true
+  temperature_z: 0.1

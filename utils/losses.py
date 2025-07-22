@@ -4,14 +4,6 @@ from geomloss import SamplesLoss
 def ot_loss( x, x_hat, blur=1.0, scaling=0.9, p=2.0, method="gaussian", backend="auto" ):
     """
     Computes per-image OT loss using geomloss.
-    
-    Args:
-        x, x_hat: tensors of shape (B, 1600)
-        blur: entropic regularization (blur=sqrt(eps) in geomloss)
-    
-    Returns:
-        Tensor of shape (B,) — OT losses per image
-
     SamplesLoss details:
     https://www.kernel-operations.io/geomloss/_modules/geomloss/samples_loss.html#SamplesLoss
     """

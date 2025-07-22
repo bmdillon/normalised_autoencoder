@@ -9,7 +9,7 @@ data:
   val_path: data/val_data_r.pt
   batch_size: 128
   gaussian_filter: true
-  gfsigma: 2.0
+  gfsigma: 1.0
 
 energy:
   energy_func: 'mse'

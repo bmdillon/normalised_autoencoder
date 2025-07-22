@@ -2,6 +2,7 @@ import os
 import argparse
 import torch
 import yaml
+from utils.logger import get_logger
 from models.nae import NormalisedAutoEncoder
 from training.trainer import Trainer
 from utils.data import load_data, load_val
@@ -11,8 +12,13 @@ def main(config_path):
     with open(config_path, 'r') as f:
         cfg = yaml.safe_load(f)
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+    logger = get_logger(__name__, logfile=cfg['save'].get('logfile'))
+    
+    logger.info("========== Config ==========")
+    for key, value in cfg.items():
+        logger.info(f"{key}: {value}")
+    logger.info("============================")
+    
     model = NormalisedAutoEncoder(
         input_dim=cfg['model']['input_dim'],
         latent_dim=cfg['model']['latent_dim'],
@@ -44,7 +50,7 @@ def main(config_path):
 
     )
 
-    trainer = Trainer(model, device, ae_lr=cfg['training']['ae_lr'], nae_lr=cfg['training']['nae_lr'], logfile = cfg['save'].get('logfile'))
+    trainer = Trainer(model, logger, ae_lr=cfg['training']['ae_lr'], nae_lr=cfg['training']['nae_lr'] )
     dataloader = load_data(cfg['data']['path'], cfg['data']['batch_size'], gfilter=cfg['data']['gaussian_filter'], gfsigma=cfg['data']['gfsigma'])
     val_loader = load_val(cfg['data']['val_path'], cfg['data']['batch_size'], gfilter=cfg['data']['gaussian_filter'], gfsigma=cfg['data']['gfsigma'])
     
